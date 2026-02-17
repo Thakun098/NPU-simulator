@@ -166,7 +166,7 @@ export class NpuCore {
     this._gemmAddrB = instr.addrB ?? n * n; // Buffer start for B (n×n)
     this._gemmAddrC = instr.addrC ?? 2 * n * n; // Buffer dest for C
     this._gemmCycle = 0;
-    this._gemmTotalCycles = 2 * n - 1; // wavefront needs 2n-1 cycles
+    this._gemmTotalCycles = 3 * n - 2; // wavefront: PE(r,c) accumulates at t=r+c+k, max t=3(n-1)
     this._gemmActive = true;
     this.systolicArray.reset();
     this._addLog(
